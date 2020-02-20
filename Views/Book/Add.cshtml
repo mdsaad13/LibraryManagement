@@ -1,0 +1,126 @@
+﻿@model LibraryManagement.Models.Book
+
+@{
+    ViewBag.Title = "Add Book";
+}
+<!-- Page Heading -->
+<div class="align-items-center justify-content-between mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <div class="card shadow mb-4 border-bottom-primary">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Title</h6>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Add", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter isbn", @readonly ="readonly" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter book title name" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter author name" } })
+                            @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Edition, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.Edition, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter book edition" } })
+                            @Html.ValidationMessageFor(model => model.Edition, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PubID, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.PubID, ViewBag.Publication as SelectList, "Select Publication", new { @class = "custom-select" })
+                            @Html.ValidationMessageFor(model => model.PubID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CatID, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.CatID, ViewBag.Category as SelectList, "Select Category", new { @class = "custom-select" })
+                            @Html.ValidationMessageFor(model => model.CatID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            <div class="custom-file col-md-12">
+                                @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "custom-file-input", @accept = "image/*", @id = "customFile" })
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-12">
+                            <input type="submit" value="Add" class="btn btn-outline-primary w-50" />
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <img class="img-fluid" id="outputImg" style="height:400px;width:auto" />
+    </div>
+</div>
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var loadFile = function (event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('outputImg');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            };
+
+
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+                loadFile(event);
+            });
+        });
+    </script>
+}

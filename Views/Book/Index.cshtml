@@ -1,0 +1,187 @@
+﻿@model IEnumerable<LibraryManagement.Models.Book>
+
+@{
+    ViewBag.Title = "Manage Books";
+}
+@section head {
+    <link rel="stylesheet" href="~/Libs/DataTables/dataTables.bootstrap4.css" />
+}
+
+<!-- Page Heading -->
+<div class="align-items-center justify-content-between mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="card shadow mb-4 border-bottom-primary">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    @ViewBag.Title
+                </h6>
+            </div>
+            <div class="card-body">
+                <table class="table" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Sl no.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ISBN)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ImgUrl)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+
+                    @{ int i = 1; }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @i
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ISBN)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                <img src="~/Images/BookCover/@Html.DisplayFor(modelItem => item.ImgUrl)" alt="@Html.DisplayFor(modelItem => item.Title)" class="img-fluid rounded" style="height: 100px;">
+                                
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", "Book",  new { id = item.ISBN })" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Sl no.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ISBN)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ImgUrl)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts {
+
+    <script type="text/javascript" src="~/Libs/DataTables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/Libs/DataTables/dataTables.bootstrap4.js"></script>
+    <script>
+        // Call the dataTables jQuery plugin
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+
+    <script type="text/javascript" src="~/Libs/sweetalert2/sweetalert2.js"></script>
+    <script>
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+    </script>
+    @{
+        //Initializing Notification
+        int Notification = 0;
+        try
+        {
+            /*
+            * try block to check if Session["Notification"] exist
+            * if exist then convert  string to int
+            */
+            Notification = Convert.ToInt32(Session["Notification"]);
+        }
+        catch
+        { }
+        if (Notification == 1) //insert success
+        {
+            <script type="text/javascript">
+                swalWithBootstrapButtons.fire({
+                    icon: 'success',
+                    title: 'Book added successfully!',
+                    text: '',
+                })
+            </script>
+            // Resetting Session["Notification"]
+            Session["Notification"] = null;
+        }
+        else if (Notification == 2) //insert failure
+        {
+            <script type="text/javascript">
+                swalWithBootstrapButtons.fire({
+                    icon: 'error',
+                    title: 'Book add failed!',
+                    text: 'Please try again later',
+                })
+            </script>
+            // Resetting Session["Notification"]
+            Session["Notification"] = null;
+        }
+        else if (Notification == 3) //update failure
+        {
+            <script type="text/javascript">
+                swalWithBootstrapButtons.fire({
+                    icon: 'success',
+                    title: 'Book updated successfully!',
+                    text: '',
+                })
+            </script>
+            // Resetting Session["Notification"]
+            Session["Notification"] = null;
+        }
+        else if (Notification == 4) //update failure
+        {
+            <script type="text/javascript">
+                swalWithBootstrapButtons.fire({
+                    icon: 'error',
+                    title: 'Book update failed!',
+                    text: 'Please try again later',
+                })
+            </script>
+            // Resetting Session["Notification"]
+            Session["Notification"] = null;
+        }
+
+    }
+
+}
