@@ -1,8 +1,8 @@
-﻿@model IEnumerable<LibraryManagement.Models.Category>
+﻿@model IEnumerable<LibraryManagement.Models.Student>
 
 @{
-    ViewBag.Title = "Manage Category";
-    ViewData["Active_Category"] = "active";
+    ViewBag.Title = "Manage Students";
+    ViewData["Active_Student"] = "active";
 }
 @section head {
     <link rel="stylesheet" href="~/Libs/DataTables/dataTables.bootstrap4.css" />
@@ -29,7 +29,7 @@
                         </h6>
                     </div>
                     <div class="col-6 text-right">
-                        <a class="btn btn-primary" href="@Url.Action("AddCategory")">Add Category</a>
+                        <a class="btn btn-primary" href="@Url.Action("Add", "Student")">Add Student</a>
                     </div>
                 </div>
             </div>
@@ -41,13 +41,16 @@
                                 Sl no.
                             </th>
                             <th>
-                                ID
+                                @Html.DisplayNameFor(model => model.ID)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                Books count
+                                @Html.DisplayNameFor(model => model.Mobile)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BookIssuedCount)
                             </th>
                             <th>
                                 Actions
@@ -64,17 +67,20 @@
                             </td>
 
                             <td>
-                                CAT-@Html.DisplayFor(modelItem => item.ID)
+                                STD-@Html.DisplayFor(modelItem => item.ID)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.BookCount)
+                                @Html.DisplayFor(modelItem => item.Mobile)
                             </td>
                             <td>
-                                <a href="@Url.Action("EditCategory", "Home",  new { id = item.ID })" class="btn btn-info btn-circle btn-sm">
-                                    <i class="fas fa-edit"></i>
+                                @Html.DisplayFor(modelItem => item.BookIssuedCount)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Student",  new { id = item.ID })" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-eye"></i>
                                 </a>
 
                             </td>
@@ -87,13 +93,16 @@
                                 Sl no.
                             </th>
                             <th>
-                                ID
+                                @Html.DisplayNameFor(model => model.ID)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                Books count
+                                @Html.DisplayNameFor(model => model.Mobile)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BookIssuedCount)
                             </th>
                             <th>
                                 Actions
@@ -145,7 +154,7 @@
             <script type="text/javascript">
                 swalWithBootstrapButtons.fire({
                     icon: 'success',
-                    title: 'Category added successfully!',
+                    title: 'Student added successfully!',
                     text: '',
                 })
             </script>
@@ -157,7 +166,7 @@
             <script type="text/javascript">
                 swalWithBootstrapButtons.fire({
                     icon: 'error',
-                    title: 'Category add failed!',
+                    title: 'Student add failed!',
                     text: 'Please try again later',
                 })
             </script>
@@ -169,7 +178,7 @@
             <script type="text/javascript">
                 swalWithBootstrapButtons.fire({
                     icon: 'success',
-                    title: 'Category updated successfully!',
+                    title: 'Student updated successfully!',
                     text: '',
                 })
             </script>
@@ -181,7 +190,7 @@
             <script type="text/javascript">
                 swalWithBootstrapButtons.fire({
                     icon: 'error',
-                    title: 'Category update failed!',
+                    title: 'Student update failed!',
                     text: 'Please try again later',
                 })
             </script>

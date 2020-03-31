@@ -15,35 +15,37 @@ namespace LibraryManagement.DAL
 
         public int Count(string TableName)
         {
+            int count = 0;
             try
             {
                 string query = "SELECT COUNT(*) FROM " + TableName;
                 SqlCommand cmd = new SqlCommand(query, Conn);
                 Conn.Open();
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                count = Convert.ToInt32(cmd.ExecuteScalar());
                 Conn.Close();
                 return count;
             }
             catch
             {
-                return 0;
+                return count;
             }
         }
         
         public int CountByArgs(string TableName, string args)
         {
+            int count = 0;
             try
             {
                 string query = "SELECT COUNT(*) FROM " + TableName + " " + args;
                 SqlCommand cmd = new SqlCommand(query, Conn);
                 Conn.Open();
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                count = Convert.ToInt32(cmd.ExecuteScalar());
                 Conn.Close();
                 return count;
             }
             catch
             {
-                return 0;
+                return count;
             }
         }
     }

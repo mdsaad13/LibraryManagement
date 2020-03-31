@@ -41,7 +41,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item @ViewData["Active_Dashboard"]">
                 <a class="nav-link" href="@Url.Action("Index", "Home")">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -51,63 +51,36 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publication" aria-expanded="true" aria-controls="Publication">
+            <li class="nav-item @ViewData["Active_Publications"]">
+                <a class="nav-link" href="@Url.Action("ManagePublication", "Home")">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Publication</span>
                 </a>
-                <div id="Publication" class="collapse" aria-labelledby="headingPublication" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("AddPublication", "Home")">Add Publication</a>
-                        <a class="collapse-item" href="@Url.Action("ManagePublication", "Home")">Manage Publications</a>
-                    </div>
-                </div>
             </li>
-
-            <!-- Nav Item Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Category" aria-expanded="true" aria-controls="Category">
+            
+            <li class="nav-item @ViewData["Active_Category"]">
+                <a class="nav-link" href="@Url.Action("ManageCategory", "Home")">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Category</span>
                 </a>
-                <div id="Category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("AddCategory", "Home")">Add Category</a>
-                        <a class="collapse-item" href="@Url.Action("ManageCategory", "Home")">Manage Category</a>
-                    </div>
-                </div>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Books" aria-expanded="true" aria-controls="Books">
+            
+            <li class="nav-item @ViewData["Active_Book"]">
+                <a class="nav-link" href="@Url.Action("Index", "Book")">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Books</span>
                 </a>
-                <div id="Books" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Add", "Book")">Add Book</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "Book")">Manage Books</a>
-                    </div>
-                </div>
             </li>
-
-            <!-- Nav Item Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Student" aria-expanded="true" aria-controls="Student">
+            
+            <li class="nav-item @ViewData["Active_Student"]">
+                <a class="nav-link" href="@Url.Action("Index", "Student")">
                     <i class="fas fa-fw fa-user-graduate"></i>
-                    <span>Student</span>
+                    <span>Students</span>
                 </a>
-                <div id="Student" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Add Student</a>
-                        <a class="collapse-item" href="">Manage Student</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider" />
 
             <!-- Heading -->
             <div class="sidebar-heading">

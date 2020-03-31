@@ -428,5 +428,114 @@ namespace LibraryManagement.DAL
             return list;
         }
 
+        internal int insertStudent(Student Obj)
+        {
+            int rows = 0;
+            try
+            {
+                /*
+                 * Creating a SQL prepared statement
+                 */
+                string query = "INSERT INTO student (name, mobile, email, address, city, state, pincode, bookIssueCount) VALUES (@name, @mobile, @email, @address, @city, @state, @pincode, @bookIssueCount)";
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                /*
+                 * Binding the SQL prepared statement with values
+                 */
+                cmd.Parameters.Add(new SqlParameter("name", Obj.Name));
+                cmd.Parameters.Add(new SqlParameter("mobile", Obj.Mobile));
+                cmd.Parameters.Add(new SqlParameter("email", Obj.Email));
+                cmd.Parameters.Add(new SqlParameter("address", Obj.Address));
+                cmd.Parameters.Add(new SqlParameter("city", Obj.City));
+                cmd.Parameters.Add(new SqlParameter("state", Obj.State));
+                cmd.Parameters.Add(new SqlParameter("pincode", Obj.PinCode));
+                cmd.Parameters.Add(new SqlParameter("bookIssueCount", Obj.BookIssuedCount));
+
+                /*
+                 * Opening sql connection
+                 */
+                Conn.Open();
+
+                /*
+                 * @return rows = number of rows affected
+                 */
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            { }
+            finally
+            {
+                /*
+                 * Closing sql connection
+                 */
+                Conn.Close();
+            }
+            return rows;
+        }
+
+        internal Student GetStudentByID(int id)
+        {
+            DataTable td = new DataTable();
+            Student obj = new Student();
+            try
+            {
+                string sqlquery = "SELECT * FROM student WHERE id = @id";
+                SqlCommand cmd = new SqlCommand(sqlquery, Conn);
+                cmd.Parameters.Add(new SqlParameter("id", id));
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                Conn.Open();
+                adp.Fill(td);
+
+                obj.ID = Convert.ToInt32(td.Rows[0]["id"]);
+                obj.Name = Convert.ToString(td.Rows[0]["name"]);
+                obj.Mobile = Convert.ToInt32(td.Rows[0]["mobile"]);
+                obj.Email = Convert.ToString(td.Rows[0]["email"]);
+                obj.Address = Convert.ToString(td.Rows[0]["address"]);
+                obj.City = Convert.ToString(td.Rows[0]["city"]);
+                obj.State = Convert.ToString(td.Rows[0]["state"]);
+                obj.PinCode = Convert.ToInt32(td.Rows[0]["pincode"]);
+                obj.BookIssuedCount = Convert.ToInt32(td.Rows[0]["bookIssueCount"]);
+                
+            }
+            catch (Exception)
+            { }
+            finally
+            {
+                Conn.Close();
+            }
+            return obj;
+        }
+
+        internal int updateStudent(Student Obj)
+        {
+            int rows = 0;
+            try
+            {
+                string query = "UPDATE student SET name = @name, mobile = @mobile, email = @email, address = @address, city = @city, state = @state, pincode = @pincode where id = @id";
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                cmd.Parameters.Add(new SqlParameter("id", Obj.ID));
+
+                cmd.Parameters.Add(new SqlParameter("name", Obj.Name));
+                cmd.Parameters.Add(new SqlParameter("mobile", Obj.Mobile));
+                cmd.Parameters.Add(new SqlParameter("email", Obj.Email));
+                cmd.Parameters.Add(new SqlParameter("address", Obj.Address));
+                cmd.Parameters.Add(new SqlParameter("city", Obj.City));
+                cmd.Parameters.Add(new SqlParameter("state", Obj.State));
+                cmd.Parameters.Add(new SqlParameter("pincode", Obj.PinCode));
+                Conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return rows;
+        }
+
     }
 }

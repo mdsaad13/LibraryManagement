@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace LibraryManagement.Controllers
 {  
-    [SessionAuthorize]
+    //[SessionAuthorize]
     public class HomeController : Controller
     {
         public HomeController()
@@ -70,8 +70,7 @@ namespace LibraryManagement.Controllers
              * List class of type `Publication` model
              * List is a dynamic generic collection array 
              */
-            List<Publication> details = new List<Publication>();
-            details = dbObj.GetAllPublications();
+            List<Publication> details = dbObj.GetAllPublications();
             return View(details);
         }
 
@@ -146,8 +145,7 @@ namespace LibraryManagement.Controllers
              */
             HomeDbUtil dbObj = new HomeDbUtil();
 
-            List<Category> details = new List<Category>();
-            details = dbObj.GetAllCategory();
+            List<Category> details = dbObj.GetAllCategory();
             return View(details);
         }
 

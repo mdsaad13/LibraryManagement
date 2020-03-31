@@ -39,6 +39,7 @@ namespace LibraryManagement.Models
         
 
         [Required(ErrorMessage = "This field cannot be empty")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Enter a valid state name")]
         public string State { get; set; }
 
 
@@ -46,7 +47,6 @@ namespace LibraryManagement.Models
         [RegularExpression("^([0-9]{6})$", ErrorMessage = "Enter a valid area pin code")]
         public int PinCode { get; set; }
 
-        
         public int BookIssuedCount { get; set; }
     }
 }

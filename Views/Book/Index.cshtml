@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Manage Books";
+    ViewData["Active_Book"] = "active";
 }
 @section head {
     <link rel="stylesheet" href="~/Libs/DataTables/dataTables.bootstrap4.css" />
@@ -21,9 +22,16 @@
     <div class="col-12 col-lg-12">
         <div class="card shadow mb-4 border-bottom-primary">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">
-                    @ViewBag.Title
-                </h6>
+                <div class="row">
+                    <div class="col-6">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            @ViewBag.Title
+                        </h6>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="btn btn-primary" href="@Url.Action("Add", "Book")">Add Book</a>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table" id="dataTable">
