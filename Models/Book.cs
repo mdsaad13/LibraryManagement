@@ -55,5 +55,7 @@ namespace LibraryManagement.Models
 
         [Required]
         public string Edition { get; set; }
+
+        public int IsIssued { get; set; }
     }
 }

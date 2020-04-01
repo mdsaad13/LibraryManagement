@@ -8,19 +8,22 @@ using System.Web.Mvc;
 
 namespace LibraryManagement.Controllers
 {
+    
     public class AccountController : Controller
     {
         public AccountController()
         {
-            ViewBag.SoftwareName = "Library Management";
+            ViewBag.SoftwareName = SoftwareInfo.SoftwareName;
         }
 
+        [IsSessionAuthorize]
         public ActionResult Login()
         {
             return View();
         }
 
         //Post method of Login
+        [IsSessionAuthorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Login(Admin adminObj)
@@ -71,5 +74,11 @@ namespace LibraryManagement.Controllers
             }
         }
         
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+
+            return RedirectToAction("Login");
+        }
     }
 }

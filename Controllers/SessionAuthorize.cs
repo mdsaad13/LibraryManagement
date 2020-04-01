@@ -16,4 +16,15 @@ namespace LibraryManagement.Controllers
             }
         }
     }
+    
+    public class IsSessionAuthorize : AuthorizeAttribute
+    {
+        protected override void HandleUnauthorizedRequest(AuthorizationContext context)
+        {
+            if (context.HttpContext.Session["userID"] != null)
+            {
+                context.Result = new RedirectResult("/Home/Index");
+            }
+        }
+    }
 }

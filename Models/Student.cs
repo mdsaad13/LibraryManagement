@@ -9,7 +9,7 @@ namespace LibraryManagement.Models
     public class Student
     {
         public int ID { get; set; }
-
+        
 
         [Display(Name = "Student Name")]
         [Required(ErrorMessage = "This field cannot be empty")]
@@ -20,7 +20,7 @@ namespace LibraryManagement.Models
         [Display(Name = "Mobile Number")]
         [Required(ErrorMessage = "This field cannot be empty")]
         [RegularExpression("^([6-9]{1})([0-9]{9})$", ErrorMessage = "Enter a valid mobile number")]
-        public int Mobile { get; set; }
+        public long Mobile { get; set; }
 
 
         [Required(ErrorMessage = "This field cannot be empty")]

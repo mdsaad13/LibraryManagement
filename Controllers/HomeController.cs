@@ -15,7 +15,7 @@ namespace LibraryManagement.Controllers
     {
         public HomeController()
         {
-            ViewBag.SoftwareName = "Library Management";
+            ViewBag.SoftwareName = SoftwareInfo.SoftwareName;
         }
 
         public ActionResult Index()
@@ -23,9 +23,14 @@ namespace LibraryManagement.Controllers
             GeneralUtil DbOpObj = new GeneralUtil();
 
             ViewBag.Books = DbOpObj.Count("books");
-            ViewBag.Students = 0;
+            ViewBag.Students = DbOpObj.Count("student");
             ViewBag.Publications = DbOpObj.Count("publication");
             ViewBag.Categories = DbOpObj.Count("category");
+            ViewBag.Books_Issued = DbOpObj.Count("issue");
+            ViewBag.Books_Return_Pending = DbOpObj.CountByArgs("issue", "status = 0");
+            ViewBag.Books_Returned = DbOpObj.CountByArgs("issue", "status = 1");
+            ViewBag.Total_Penalties_Collected = DbOpObj.SumByArgs("issue", "amountCollected", "status = 1");
+
             return View();
         }
 

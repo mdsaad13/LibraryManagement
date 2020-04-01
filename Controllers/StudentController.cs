@@ -11,6 +11,11 @@ namespace LibraryManagement.Controllers
     //[SessionAuthorize]
     public class StudentController : Controller
     {
+        public StudentController()
+        {
+            ViewBag.SoftwareName = SoftwareInfo.SoftwareName;
+        }
+
         // GET: Student
         public ActionResult Index()
         {
@@ -51,6 +56,15 @@ namespace LibraryManagement.Controllers
 
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult View(int id)
+        {
+            HomeDbUtil homeDbUtil = new HomeDbUtil();
+
+            Student student = homeDbUtil.GetStudentByID(id);
+
+            return View(student);
         }
 
         public ActionResult Edit(int id)

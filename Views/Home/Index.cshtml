@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dashboard";
     ViewData["Active_Dashboard"] = "active";
 }
 
@@ -86,5 +86,82 @@
             </div>
         </div>
     </div>
+
+    <!-- Total Books Issued -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-purple shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-purple text-uppercase mb-1">Total Books Issued</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.Books_Issued
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-file fa-2x text-purple"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Books Returned -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-orange shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-orange text-uppercase mb-1">Books Returned</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.Books_Returned
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-orange"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Books Return Pending -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-teal shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-teal text-uppercase mb-1">Books Return Pending</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.Books_Return_Pending
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-circle fa-2x text-teal"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Penalties Collected -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-dark shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">Total Penalties Collected</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @ViewBag.Total_Penalties_Collected
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-rupee-sign fa-2x text-dark"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 

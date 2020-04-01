@@ -13,7 +13,7 @@ namespace LibraryManagement.DAL
         /*
          * Conn = connection string of database
          */
-        private readonly SqlConnection Conn = new SqlConnection("Data Source=localhost;Initial Catalog=LibraryManagement;Integrated Security=True");
+        private readonly SqlConnection Conn = new SqlConnection($"Data Source=localhost;Initial Catalog={Controllers.SoftwareInfo.DatabaseName};Integrated Security=True");
 
         public int CreateAccount(Admin adminObj)
         {

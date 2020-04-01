@@ -156,7 +156,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\SessionAuthorize.cs" />
+    <Compile Include="Controllers\SoftwareInfo.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="DAL\AccountDbUtil.cs" />
     <Compile Include="DAL\GeneralUtil.cs" />
@@ -190,6 +192,9 @@
     <Content Include="Libs\DataTables\dataTables.bootstrap4.css" />
     <Content Include="Libs\DataTables\dataTables.bootstrap4.js" />
     <Content Include="Libs\DataTables\jquery.dataTables.js" />
+    <Content Include="Libs\daterangepicker\daterangepicker.css" />
+    <Content Include="Libs\daterangepicker\daterangepicker.js" />
+    <Content Include="Libs\daterangepicker\moment.js" />
     <Content Include="Libs\sweetalert2\sweetalert2.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -341,6 +346,7 @@
     <Content Include="Views\Student\Add.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Issue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

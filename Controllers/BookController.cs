@@ -12,12 +12,12 @@ using ZXing;
 
 namespace LibraryManagement.Controllers
 {
-    [SessionAuthorize]
+    //[SessionAuthorize]
     public class BookController : Controller
     {
         public BookController()
         {
-            ViewBag.SoftwareName = "Library Management";
+            ViewBag.SoftwareName = SoftwareInfo.SoftwareName;
         }
         // GET: Book
         public ActionResult Index()
@@ -49,7 +49,7 @@ namespace LibraryManagement.Controllers
         public ActionResult Add(Book model)
         {
             HomeDbUtil homeDbUtil = new HomeDbUtil();
-
+            model.IsIssued = 0;
             // Image store code
 
             // To make sure the file name is unique

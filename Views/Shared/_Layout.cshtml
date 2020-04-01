@@ -6,8 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>@ViewBag.Title - @ViewBag.SoftwareName</title>
+    @{ 
+        var SoftwareName = (ViewBag.SoftwareName) ?? "Library Management";
+    }
+    <title>@ViewBag.Title - @SoftwareName</title>
 
     <!-- Bootstrap core CSS-->
     @Styles.Render("~/Content/css")
@@ -34,7 +36,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-book"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Library Management</div>
+                <div class="sidebar-brand-text mx-3">@SoftwareName</div>
             </a>
 
             <!-- Divider -->
@@ -53,14 +55,14 @@
 
             <li class="nav-item @ViewData["Active_Publications"]">
                 <a class="nav-link" href="@Url.Action("ManagePublication", "Home")">
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fas fa-fw fa-bullhorn"></i>
                     <span>Publication</span>
                 </a>
             </li>
             
             <li class="nav-item @ViewData["Active_Category"]">
                 <a class="nav-link" href="@Url.Action("ManageCategory", "Home")">
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fas fa-fw fa-list-alt"></i>
                     <span>Category</span>
                 </a>
             </li>
@@ -78,20 +80,11 @@
                     <span>Students</span>
                 </a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider" />
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Report
-            </div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Report</span>
+            
+            <li class="nav-item @ViewData["Active_Book_Issues"]">
+                <a class="nav-link" href="@Url.Action("Index", "Issue")">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Books Issues</span>
                 </a>
             </li>
 
@@ -135,16 +128,7 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Account")" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
