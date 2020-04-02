@@ -12,7 +12,7 @@ using ZXing;
 
 namespace LibraryManagement.Controllers
 {
-    //[SessionAuthorize]
+    [SessionAuthorize]
     public class BookController : Controller
     {
         public BookController()

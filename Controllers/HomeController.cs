@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace LibraryManagement.Controllers
 {  
-    //[SessionAuthorize]
+    [SessionAuthorize]
     public class HomeController : Controller
     {
         public HomeController()
