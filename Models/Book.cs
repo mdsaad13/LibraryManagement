@@ -58,4 +58,10 @@ namespace LibraryManagement.Models
 
         public int IsIssued { get; set; }
     }
+
+    public class BookBundle
+    {
+        public Book BookDetails { get; set; }
+        public List<Issue> IssueList { get; set; }
+    }
 }

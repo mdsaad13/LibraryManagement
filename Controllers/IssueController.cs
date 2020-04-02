@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LibraryManagement.Controllers
 {
+    //[SessionAuthorize]
     public class IssueController : Controller
     {
         public IssueController()

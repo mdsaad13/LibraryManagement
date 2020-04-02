@@ -7,7 +7,7 @@ namespace LibraryManagement.Controllers
 {
     public class SoftwareInfo
     {
-        public static string SoftwareName = "My Library";
+        public static string SoftwareName = "Library Management";
 
         internal static string DatabaseName = "LibraryManagement";
     }

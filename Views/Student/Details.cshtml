@@ -1,16 +1,16 @@
-﻿@model LibraryManagement.Models.BookBundle
-
+﻿@model LibraryManagement.Models.StudentBundle
 @{
-    ViewBag.Title = "Book Details";
-    ViewData["Active_Book"] = "active";
+    ViewBag.Title = "Student Details";
+    ViewData["Active_Student"] = "active";
 }
+
 
 <!-- Page Heading -->
 <div class="align-items-center justify-content-between mb-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Book")">Manage Books</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Student")">Manage Students</a></li>
             <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
         </ol>
     </nav>
@@ -35,83 +35,71 @@
                     else
                     {
                         <div class="row">
-                            <div class="col-12 col-lg-6 text-center">
-                                <h2 class="text-center text-primary">
-                                    @Html.DisplayFor(model => model.BookDetails.Title)
-                                </h2>
-                                <hr />
-                                <img src="~/Images/BookCover/@Html.DisplayFor(model => model.BookDetails.ImgUrl)" class="img-fluid " alt="@Html.DisplayFor(model => model.BookDetails.Title)" style="height:400px">
-                                <hr />
-                                <img src="@ViewBag.BarCode" class="img-fluid img-thumbnail" alt="Barcode">
-                                <a href="@ViewBag.BarCode" download="download" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Download Barcode">
-                                    <i class="fas fa-download"></i>
-                                </a>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <h2 class="text-center text-primary">Book Details</h2>
+                            <div class="col-12 col-lg-12">
+                                <h2 class="text-center text-primary">Student Details</h2>
                                 <hr />
                                 <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.Title)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.Title)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.ISBN)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.ISBN)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.PubName)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.PubName)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.CatName)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.CatName)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.Author)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.Author)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BookDetails.Edition)
-                                            </th>
-                                            <td>
-                                                @Html.DisplayFor(model => model.BookDetails.Edition)
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                Number of times issued
-                                            </th>
-                                            <td>
-                                                @Model.IssueList.Count
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.Name
+                                        </td>
+                                        <th>
+                                            Mobile
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.Mobile
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.Email
+                                        </td>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.Address
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            City
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.City
+                                        </td>
+                                        <th>
+                                            State
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.State
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Pin Code
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.PinCode
+                                        </td>
+                                        <th>
+                                            Current Books Issued
+                                        </th>
+                                        <td>
+                                            @Model.StudentDetails.BookIssuedCount
+                                        </td>
+                                    </tr>
                                 </table>
                                 <hr />
-                                <a class="btn btn-block btn-outline-secondary" href="@Url.Action("Edit", new { id = Model.BookDetails.ID })">Edit</a>
+                                <div class="text-center">
+                                    <a class="btn w-50 btn-outline-secondary" href="@Url.Action("Edit", new { id = Model.StudentDetails.ID })">Edit</a>
+                                </div>
                             </div>
                         </div>
 
@@ -122,7 +110,7 @@
                                     Issue Details
                                 </h2>
                             </div>
-                            
+
                             <div class="col-12 col-lg-12">
                                 <table class="table" id="dataTable">
                                     <thead>
@@ -131,7 +119,7 @@
                                                 Sl no.
                                             </th>
                                             <th>
-                                                Student ID
+                                                Book ID
                                             </th>
                                             <th>
                                                 Issue Date
@@ -146,16 +134,16 @@
                                     </thead>
 
                                     @{ int i = 1; }
-                                    @foreach (var item in Model.IssueList)
+                                    @foreach (var item in Model.IssueDetails)
                                     {
                                         <tr>
                                             <td>
                                                 @i
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("Details", "Student",  new { id = item.StudentID })">
-                                                    STD-@item.StudentID <br />
-                                                    <span class="text-black-50">@item.StudentName</span>
+                                                <a href="@Url.Action("Details", "Book",  new { id = item.BookISBN })">
+                                                    @item.BookISBN <br />
+                                                    <span class="text-black-50">@item.BookTitle</span>
                                                 </a>
                                             </td>
                                             <td>
@@ -190,7 +178,7 @@
                                                 Sl no.
                                             </th>
                                             <th>
-                                                Student ID
+                                                Book ID
                                             </th>
                                             <th>
                                                 Issue Date

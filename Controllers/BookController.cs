@@ -81,23 +81,59 @@ namespace LibraryManagement.Controllers
         
         public ActionResult Edit(int id)
         {
-            return View();
+            HomeDbUtil homeDbUtil = new HomeDbUtil();
+            Book book = homeDbUtil.GetBookByID(id);
+
+            ViewBag.Category = new SelectList(homeDbUtil.GetAllCategory(), "id", "name");
+            ViewBag.Publication = new SelectList(homeDbUtil.GetAllPublications(), "id", "name");
+
+            return View(book);
+        }
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Book book)
+        {
+            HomeDbUtil homeDbUtil = new HomeDbUtil();
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + book.Image.FileName;
+            if (book.Image != null)
+            {
+                string path = Server.MapPath("~/Images/BookCover/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                book.Image.SaveAs(path + uniqueFileName);
+                book.ImgUrl = uniqueFileName;
+            }
+
+            if (homeDbUtil.UpdateBook(book))
+            {
+                return RedirectToAction("Details/" + book.ISBN);
+            }
+            else
+            {
+                return View();
+            }
         }
        
         public ActionResult Details(int id)
         {
             HomeDbUtil homeDbUtil = new HomeDbUtil();
-            
-            Book bookObj = homeDbUtil.GetBookByISBN(id);
-            if (bookObj.ID > 0)
+            BookBundle bookObj = new BookBundle();
+            bookObj.BookDetails = homeDbUtil.GetBookByISBN(id);
+            if (bookObj.BookDetails.ID > 0)
             {
-                Publication pubObj = homeDbUtil.GetPublicationByID(bookObj.PubID);
-                bookObj.PubName = pubObj.Name;
+                Publication pubObj = homeDbUtil.GetPublicationByID(bookObj.BookDetails.PubID);
+                bookObj.BookDetails.PubName = pubObj.Name;
 
-                Category catObj = homeDbUtil.GetCategoryByID(bookObj.CatID);
-                bookObj.CatName = catObj.Name;
+                Category catObj = homeDbUtil.GetCategoryByID(bookObj.BookDetails.CatID);
+                bookObj.BookDetails.CatName = catObj.Name;
 
-                ViewBag.BarCode = BarcodeGenrator(Convert.ToString(bookObj.ISBN));
+                ViewBag.BarCode = BarcodeGenrator(Convert.ToString(bookObj.BookDetails.ISBN));
+
+                bookObj.IssueList = homeDbUtil.GetPerticularIssue(bookObj.BookDetails.ID);
                 return View(bookObj);
             }
             else

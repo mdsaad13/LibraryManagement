@@ -58,13 +58,23 @@ namespace LibraryManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult View(int id)
+        public ActionResult Details(int id)
         {
             HomeDbUtil homeDbUtil = new HomeDbUtil();
 
-            Student student = homeDbUtil.GetStudentByID(id);
+            StudentBundle studentBundle = new StudentBundle();
 
-            return View(student);
+            studentBundle.StudentDetails = homeDbUtil.GetStudentByID(id);
+            if (studentBundle.StudentDetails.ID > 0)
+            {
+                studentBundle.IssueDetails = homeDbUtil.GetPerticularIssue(0, id);
+            }
+            else
+            {
+                ViewBag.Error = 1;
+            }
+            
+            return View(studentBundle);
         }
 
         public ActionResult Edit(int id)

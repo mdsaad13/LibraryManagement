@@ -49,4 +49,10 @@ namespace LibraryManagement.Models
 
         public int BookIssuedCount { get; set; }
     }
+
+    public class StudentBundle
+    {
+        public Student StudentDetails { get; set; }
+        public List<Issue> IssueDetails { get; set; }
+    }
 }

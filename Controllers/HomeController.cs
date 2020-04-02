@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace LibraryManagement.Controllers
 {  
     //[SessionAuthorize]
@@ -29,7 +28,7 @@ namespace LibraryManagement.Controllers
             ViewBag.Books_Issued = DbOpObj.Count("issue");
             ViewBag.Books_Return_Pending = DbOpObj.CountByArgs("issue", "status = 0");
             ViewBag.Books_Returned = DbOpObj.CountByArgs("issue", "status = 1");
-            ViewBag.Total_Penalties_Collected = DbOpObj.SumByArgs("issue", "amountCollected", "status = 1");
+            ViewBag.Total_Penalties_Collected = DbOpObj.SumByArgs("issue", "amountCollected", "status = 1").ToString("C");
 
             return View();
         }

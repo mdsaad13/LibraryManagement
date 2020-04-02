@@ -405,6 +405,35 @@ namespace LibraryManagement.DAL
             return Obj;
         }
 
+        internal bool UpdateBook(Book book)
+        {
+            bool status = false;
+            try
+            {
+                //isbn, title, pubid, catid, img, author, edition
+                string query = "UPDATE books SET title= @title, pubid = @pubid, catid = @catid, img = @img, author = @author, edition = @edition where id = @id";
+                SqlCommand cmd = new SqlCommand(query, Conn);
+
+                cmd.Parameters.Add(new SqlParameter("id", book.ID));
+                cmd.Parameters.Add(new SqlParameter("title", book.Title));
+                cmd.Parameters.Add(new SqlParameter("pubid", book.PubID));
+                cmd.Parameters.Add(new SqlParameter("catid", book.CatID));
+                cmd.Parameters.Add(new SqlParameter("img", book.ImgUrl));
+                cmd.Parameters.Add(new SqlParameter("author", book.Author));
+                cmd.Parameters.Add(new SqlParameter("edition", book.Edition));
+                Conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    status = true;
+                }
+            }
+            catch
+            { }
+            return status;
+        }
+
         internal List<Student> GetAllStudents(int AvailableForIssue = 0)
         {
             DataTable td = new DataTable();
@@ -568,6 +597,59 @@ namespace LibraryManagement.DAL
                 string sqlquery = "SELECT * FROM issue WHERE status = @status ORDER BY issueid DESC";
                 SqlCommand cmd = new SqlCommand(sqlquery, Conn);
                 cmd.Parameters.Add(new SqlParameter("status", status));
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                Conn.Open();
+                adp.Fill(td);
+                Conn.Close();
+                foreach (DataRow row in td.Rows)
+                {
+                    Issue obj = new Issue();
+                    obj.ID = Convert.ToInt32(row["issueid"]);
+                    obj.BookID = Convert.ToInt32(row["bookid"]);
+                    obj.StudentID = Convert.ToInt32(row["studentid"]);
+                    obj.IssueDate = Convert.ToDateTime(row["datetime"]);
+                    obj.ReturnDate = Convert.ToDateTime(row["returndate"]);
+                    obj.Status = Convert.ToInt32(row["status"]);
+                    obj.ReturnedOn = Convert.ToDateTime(row["returnedon"]);
+                    obj.PenaltyAmount = Convert.ToDouble(row["amountCollected"]);
+
+                    Book bookDetails = GetBookByID(obj.BookID);
+                    obj.BookISBN = bookDetails.ISBN;
+                    obj.BookTitle = bookDetails.Title;
+
+                    Student studentDetails = GetStudentByID(obj.StudentID);
+                    obj.StudentName = studentDetails.Name;
+
+                    list.Add(obj);   
+                }
+            }
+            catch (Exception)
+            { }
+            return list;
+        }
+        
+        internal List<Issue> GetPerticularIssue(int BookID = 0, int StudentID = 0)
+        {
+            DataTable td = new DataTable();
+            List<Issue> list = new List<Issue>();
+
+            string sqlquery = string.Empty;
+            int bindParam = 0;
+            if (BookID != 0)
+            {
+                sqlquery = "SELECT * FROM issue WHERE bookid = @bindParam ORDER BY issueid DESC";
+                bindParam = BookID;
+            }
+            else if (StudentID != 0)
+            {
+                sqlquery = "SELECT * FROM issue WHERE studentid = @bindParam ORDER BY issueid DESC";
+                bindParam = StudentID;
+            }
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand(sqlquery, Conn);
+                cmd.Parameters.Add(new SqlParameter("bindParam", bindParam));
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 Conn.Open();
                 adp.Fill(td);
